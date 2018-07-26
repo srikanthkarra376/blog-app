@@ -1,5 +1,6 @@
 <% include ./partials/header %>
 <div class="ui container" style="margin-top:70px;width:50%;">
+  <h3>Add New Blog Here:</h3>
     <form class="ui form" action="/blogs" method="POST">
       <div class="field">
         <label>Blog Title:</label>
@@ -11,7 +12,7 @@
       </div>
       <div class="field">
           <label>Blog Description:</label>
-          <input type="text" name="bodypost" placeholder="write about blog">
+         <textarea name="bodypost"  cols="30" rows="10"></textarea>
         </div>
       
       <button class="ui button" type="submit">Submit</button>

@@ -1,6 +1,6 @@
 <% include ./partials/header %>
 
-        <div class="ui grid" style="text-align:center">
+        <div class="ui grid" style="text-align:right">
                 <div class="row" style="display:flex">
                 <div class="four wide column">
                         <h1>All Blog Posts</h1> 
@@ -9,12 +9,16 @@
                             <img src="<%=blog.image%>">
                         <p><span><%=blog.created%></span></p>
                             <p><%=blog.body%></p>
-                         <% });%>
-                </div>
-                                
-         </div>
-</div>
+                           <a href="/blogs/<%=blog._id%>"> 
+                            <button class="ui inverted purple button">
+                                    Readmore
+                                <i class="arrow alternate circle right icon"></i>
+                             </button>
+                            </a>
+                     <% });%>
+                 </div>
+            </div>
+        </div>
 
 
 
-<% include ./partials/header %>

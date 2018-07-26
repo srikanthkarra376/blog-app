@@ -55,9 +55,22 @@ app.post("/blogs",function(req,res){
     };
   }); 
 });
+
+
 //new Blog Route
 app.get("/blogs/new",function(req,res){
   res.render("new");
+});
+
+// show blog Route
+app.get("/blogs/:id",function(req,res){
+  blog.findById(req.params.id ,function(err ,foundBlog){
+    if(err){
+      console.log(err);
+    }else{
+      res.render("show",{blog:foundBlog});
+    }
+  });
 });
 
 //App Listening at port 4500
