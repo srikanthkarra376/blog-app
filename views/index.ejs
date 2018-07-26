@@ -1,11 +1,20 @@
-<% include .partials/header %>
+<% include ./partials/header %>
 
-<h1>All Blog Posts</h1> 
-<% blogs.forEach(function(blog){ %>
-    <h3><%=blog.name%></h3>
-    <img src="<%=blog.image%>">
-    <span><%=blog.created%></span>
-    <p><%=blog.body%></p>
-    
-<% });%>
-<% include .partials/header %>
+        <div class="ui grid" style="text-align:center">
+                <div class="row" style="display:flex">
+                <div class="four wide column">
+                        <h1>All Blog Posts</h1> 
+                        <% blogs.forEach(function(blog){ %>
+                            <h3><%=blog.name%></h3>
+                            <img src="<%=blog.image%>">
+                        <p><span><%=blog.created%></span></p>
+                            <p><%=blog.body%></p>
+                         <% });%>
+                </div>
+                                
+         </div>
+</div>
+
+
+
+<% include ./partials/header %>
