@@ -93,7 +93,7 @@ app.put("/blogs/:id",function(req,res){
   var name = req.body.name;
   var image = req.body.image;
   var body = req.body.bodypost;
-  var newBlog= { name:name,image:image,body :body,};
+  var newBlog= { name:name,image:image,body :body};
 
   blog.findByIdAndUpdate(req.params.id,newBlog,function(err,updatedBlog){
   if(err){
@@ -102,7 +102,16 @@ app.put("/blogs/:id",function(req,res){
     res.redirect("/blogs/"+req.params.id);
   }
 })
-
+});
+//DELETE BLOG
+app.delete("/blogs/:id",function(req,res){
+  blog.findByIdAndRemove(req.params.id,function(err){
+    if(err){
+      res.send(err);
+    }else{
+      res.redirect("/blogs");
+    }
+  });
 });
 
 
