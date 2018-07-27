@@ -1,17 +1,21 @@
 
-//Required instances
-
-var   express = require("express"),
+//RREQUIRED INSTANCES
+var  express = require("express"),
       app = express(),
       bodyParser = require("body-parser"),
+      methodOverRide =require("method-override")
       mongoose = require("mongoose");
+
+//DB CONNECTION
 
  mongoose.connect("mongodb://localhost:27017/blog",{ useNewUrlParser: true });
  app.use(bodyParser.urlencoded({extended:true}));
  app.use(express.static("public"));
+ app.use(methodOverRide("_method"));
  app.set("view engine","ejs");
 
-//schema of required pattern
+//DB SCHEMA PATTERN 
+
  var blogSchenma = new mongoose.Schema({
   name:String,
   image:String,
@@ -19,7 +23,7 @@ var   express = require("express"),
   created:{type: Date ,default: Date.now}
 
  });
-// model congiguration
+// DB MODEL CONFIG
 var blog = mongoose.model("blog",blogSchenma);
 
 //RESTFULL ROUTES
@@ -38,16 +42,14 @@ app.get("/blogs",function(req,res){
   });
 });
 
+//CREATE BLOG ROUTE
+
 app.post("/blogs",function(req,res){
   var name = req.body.name;
   var image = req.body.image;
   var body = req.body.bodypost;
-   var newBlog= {
-    name:name,
-    image:image,
-    body :body,
-};
-  blog.create(newBlog,function(err,newlyCreated){
+  var newBlog= { name:name,image:image,body :body,};
+     blog.create(newBlog,function(err,newlyCreated){
     if(err){
         console.log(err);
     }else{
@@ -57,12 +59,14 @@ app.post("/blogs",function(req,res){
 });
 
 
-//new Blog Route
+//NEW BLOG ROUTE
+
 app.get("/blogs/new",function(req,res){
   res.render("new");
 });
 
-// show blog Route
+//SHOW BLOG ROUTE
+
 app.get("/blogs/:id",function(req,res){
   blog.findById(req.params.id ,function(err ,foundBlog){
     if(err){
@@ -73,7 +77,36 @@ app.get("/blogs/:id",function(req,res){
   });
 });
 
-//App Listening at port 4500
+//EDIT BLOG ROUTE
+app.get("/blogs/:id/edit",function(req,res){
+  blog.findById(req.params.id ,function(err ,foundBlog){
+    if(err){
+      res.redirect("/blogs")
+    }else{
+      res.render("edit",{blog:foundBlog});
+    }
+  });
+ 
+});
+//UPDATE BLOG ROUTE 
+app.put("/blogs/:id",function(req,res){
+  var name = req.body.name;
+  var image = req.body.image;
+  var body = req.body.bodypost;
+  var newBlog= { name:name,image:image,body :body,};
+
+  blog.findByIdAndUpdate(req.params.id,newBlog,function(err,updatedBlog){
+  if(err){
+    res.redirect("/blogs")
+  }else{
+    res.redirect("/blogs/"+req.params.id);
+  }
+})
+
+});
+
+
+//APP LISTENING AT PORT 4500
 app.listen(4500,function(){
 console.log("RESTfull Blog App Server Running at port 4500.....");
 });

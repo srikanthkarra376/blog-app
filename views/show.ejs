@@ -11,7 +11,13 @@
          </div>
        </div>
   </div>
-  <p><%=blog.body%></p>
+  <p><%-blog.body%></p>
+  <a href="/blogs/<%=blog._id%>/edit"> 
+    <button  class="ui inverted secondary button">Edit Blog</button>
+    </a>
+  <a href="/blogs/<%=blog._id%>/delete"> 
+    <button class="ui inverted red button">Delete Blog </button>
+    </a>
 </div>
 
 
