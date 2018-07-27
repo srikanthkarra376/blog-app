@@ -4,12 +4,14 @@ var  express = require("express"),
       app = express(),
       bodyParser = require("body-parser"),
       methodOverRide =require("method-override")
+      expressSanitizer =require("express-sanitizer");
       mongoose = require("mongoose");
 
 //DB CONNECTION
 
  mongoose.connect("mongodb://localhost:27017/blog",{ useNewUrlParser: true });
  app.use(bodyParser.urlencoded({extended:true}));
+ app.use(expressSanitizer());
  app.use(express.static("public"));
  app.use(methodOverRide("_method"));
  app.set("view engine","ejs");
@@ -47,7 +49,7 @@ app.get("/blogs",function(req,res){
 app.post("/blogs",function(req,res){
   var name = req.body.name;
   var image = req.body.image;
-  var body = req.body.bodypost;
+  var body =req.body.bodypost;
   var newBlog= { name:name,image:image,body :body,};
      blog.create(newBlog,function(err,newlyCreated){
     if(err){
@@ -92,7 +94,7 @@ app.get("/blogs/:id/edit",function(req,res){
 app.put("/blogs/:id",function(req,res){
   var name = req.body.name;
   var image = req.body.image;
-  var body = req.body.bodypost;
+  var body =req.body.bodypost ;
   var newBlog= { name:name,image:image,body :body};
 
   blog.findByIdAndUpdate(req.params.id,newBlog,function(err,updatedBlog){
