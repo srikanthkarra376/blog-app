@@ -80,6 +80,7 @@ app.get("/blogs/:id",function(req,res){
 });
 
 //EDIT BLOG ROUTE
+
 app.get("/blogs/:id/edit",function(req,res){
   blog.findById(req.params.id ,function(err ,foundBlog){
     if(err){
@@ -90,7 +91,9 @@ app.get("/blogs/:id/edit",function(req,res){
   });
  
 });
+
 //UPDATE BLOG ROUTE 
+
 app.put("/blogs/:id",function(req,res){
   var name = req.body.name;
   var image = req.body.image;
@@ -105,7 +108,9 @@ app.put("/blogs/:id",function(req,res){
   }
 })
 });
+
 //DELETE BLOG
+
 app.delete("/blogs/:id",function(req,res){
   blog.findByIdAndRemove(req.params.id,function(err){
     if(err){
@@ -116,8 +121,8 @@ app.delete("/blogs/:id",function(req,res){
   });
 });
 
-
 //APP LISTENING AT PORT 4500
+
 app.listen(4500,function(){
 console.log("RESTfull Blog App Server Running at port 4500.....");
 });
